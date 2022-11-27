@@ -14,7 +14,7 @@ import "@broxus/contracts/contracts/libraries/MsgFlag.sol";
 import "tip3/contracts/interfaces/ITokenWallet.sol";
 
 
-contract GaslessWallet is IGaslessWallet {
+abstract contract GaslessWallet is IGaslessWallet {
 
     address public _gasGiver;
     uint128 public _minBalance;
@@ -61,7 +61,7 @@ contract GaslessWallet is IGaslessWallet {
 
     function _processTransaction(Transaction transaction) private view {
         _execute(transaction);
-        if (address(this).balance < _minReserve + transaction.value) {
+        if (address(this).balance <= _minReserve + transaction.value) {
             TvmCell meta;
             _requestGas(transaction.value, meta);
         }
