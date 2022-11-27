@@ -6,8 +6,8 @@
   "scripts": {
     "setup": "npm install && git pull && npm install",
     "build": "export $(cat .env | xargs) && locklift build --config locklift.config.js",
-    "test": "locklift test --test test/ --config locklift.config.js --network local --disable-build",
-    "deploy-sample": "locklift run -s scripts/deploy-sample.js --config locklift.config.js --network local --disable-build"
+    "deploy-gas-giver": "locklift run -s scripts/deploy-gas-giver.js --config locklift.config.js --network main --disable-build",
+    "deploy-sample-wallet": "locklift run -s scripts/deploy-sample-wallet.js --config locklift.config.js --network main --disable-build"
   },
   "author": "TONRED",
   "license": "ISC",
@@ -17,7 +17,9 @@
     "dotenv": "^10.0.0",
     "folder-hash": "^4.0.1",
     "mocha": "^9.1.3",
-    "mocha-logger": "^1.0.7"
+    "mocha-logger": "^1.0.7",
+    "tip3": "git://github.com/broxus/tip3#6503e61880c03fb45741c177c25f4955dca5f0df",
+    "flatqube": "https://github.com/broxus/flatqube-contracts#c8a72baef546e31ae881c803d710cb5bd638c9cd"
   },
   "devDependencies": {
     "@broxus/contracts": "^1.0.3",

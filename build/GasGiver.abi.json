@@ -1,0 +1,292 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"owner","type":"address"},
+				{"components":[{"name":"tokenRoot","type":"address"},{"name":"dexPair","type":"address"},{"name":"slippage","type":"uint128"},{"name":"feePercent","type":"uint128"},{"name":"maxGas","type":"uint128"},{"name":"reserve","type":"uint128"}],"name":"config","type":"tuple"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onWalletDeployed",
+			"inputs": [
+				{"name":"wallet","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onExpectedAmount",
+			"inputs": [
+				{"name":"expectedAmount","type":"uint128"},
+				{"name":"value1","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "drain",
+			"inputs": [
+				{"name":"amount","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "withdraw",
+			"inputs": [
+				{"name":"isToken","type":"bool"},
+				{"name":"amount","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getMaxGas",
+			"inputs": [
+				{"name":"answerId","type":"uint32"}
+			],
+			"outputs": [
+				{"name":"maxGas","type":"uint128"}
+			]
+		},
+		{
+			"name": "getExpectedAmount",
+			"inputs": [
+				{"name":"answerId","type":"uint32"},
+				{"name":"payload","type":"cell"}
+			],
+			"outputs": [
+				{"name":"amount","type":"uint128"},
+				{"name":"payload_","type":"cell"}
+			]
+		},
+		{
+			"name": "expectedTokenAmount",
+			"inputs": [
+				{"name":"answerId","type":"uint32"},
+				{"name":"gasAmount","type":"uint128"}
+			],
+			"outputs": [
+				{"name":"tokenAmount","type":"uint128"}
+			]
+		},
+		{
+			"name": "expectedGasAmount",
+			"inputs": [
+				{"name":"answerId","type":"uint32"},
+				{"name":"tokenAmount","type":"uint128"}
+			],
+			"outputs": [
+				{"name":"gasAmount","type":"uint128"}
+			]
+		},
+		{
+			"name": "onAcceptTokensTransfer",
+			"inputs": [
+				{"name":"value0","type":"address"},
+				{"name":"amount","type":"uint128"},
+				{"name":"sender","type":"address"},
+				{"name":"value3","type":"address"},
+				{"name":"value4","type":"address"},
+				{"name":"payload","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onAcceptTokensBurn",
+			"inputs": [
+				{"name":"amount","type":"uint128"},
+				{"name":"burner","type":"address"},
+				{"name":"value2","type":"address"},
+				{"name":"value3","type":"address"},
+				{"name":"value4","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onBounceTokensTransfer",
+			"inputs": [
+				{"name":"value0","type":"address"},
+				{"name":"amount","type":"uint128"},
+				{"name":"value2","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "upgrade",
+			"inputs": [
+				{"name":"code","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_randomNonce",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_randomNonce","type":"uint256"}
+			]
+		},
+		{
+			"name": "_owner",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_owner","type":"address"}
+			]
+		},
+		{
+			"name": "_config",
+			"inputs": [
+			],
+			"outputs": [
+				{"components":[{"name":"tokenRoot","type":"address"},{"name":"dexPair","type":"address"},{"name":"slippage","type":"uint128"},{"name":"feePercent","type":"uint128"},{"name":"maxGas","type":"uint128"},{"name":"reserve","type":"uint128"}],"name":"_config","type":"tuple"}
+			]
+		},
+		{
+			"name": "_status",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_status","type":"uint8"}
+			]
+		},
+		{
+			"name": "_weverWallet",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_weverWallet","type":"address"}
+			]
+		},
+		{
+			"name": "_tokenWallet",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_tokenWallet","type":"address"}
+			]
+		},
+		{
+			"name": "_tokenBalance",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_tokenBalance","type":"uint128"}
+			]
+		},
+		{
+			"name": "_swapTokenAmount",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_swapTokenAmount","type":"uint128"}
+			]
+		},
+		{
+			"name": "_swapWeverAmount",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_swapWeverAmount","type":"uint128"}
+			]
+		},
+		{
+			"name": "_expectedUnwrapAmount",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_expectedUnwrapAmount","type":"uint128"}
+			]
+		},
+		{
+			"name": "_inSwap",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_inSwap","type":"bool"}
+			]
+		},
+		{
+			"name": "_head",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_head","type":"uint64"}
+			]
+		},
+		{
+			"name": "_tail",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_tail","type":"uint64"}
+			]
+		},
+		{
+			"name": "_queue",
+			"inputs": [
+			],
+			"outputs": [
+				{"components":[{"name":"amount","type":"uint128"},{"name":"sender","type":"address"},{"name":"neededGas","type":"uint128"},{"name":"meta","type":"cell"}],"name":"_queue","type":"map(uint64,tuple)"}
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"_randomNonce","type":"uint256"}
+	],
+	"events": [
+		{
+			"name": "Swap",
+			"inputs": [
+				{"name":"amount","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "todo",
+			"inputs": [
+				{"name":"v","type":"uint64"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "CodeUpgraded",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		}
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"_randomNonce","type":"uint256"},
+		{"name":"_owner","type":"address"},
+		{"components":[{"name":"tokenRoot","type":"address"},{"name":"dexPair","type":"address"},{"name":"slippage","type":"uint128"},{"name":"feePercent","type":"uint128"},{"name":"maxGas","type":"uint128"},{"name":"reserve","type":"uint128"}],"name":"_config","type":"tuple"},
+		{"name":"_status","type":"uint8"},
+		{"name":"_weverWallet","type":"address"},
+		{"name":"_tokenWallet","type":"address"},
+		{"name":"_tokenBalance","type":"uint128"},
+		{"name":"_swapTokenAmount","type":"uint128"},
+		{"name":"_swapWeverAmount","type":"uint128"},
+		{"name":"_expectedUnwrapAmount","type":"uint128"},
+		{"name":"_inSwap","type":"bool"},
+		{"name":"_head","type":"uint64"},
+		{"name":"_tail","type":"uint64"},
+		{"components":[{"name":"amount","type":"uint128"},{"name":"sender","type":"address"},{"name":"neededGas","type":"uint128"},{"name":"meta","type":"cell"}],"name":"_queue","type":"map(uint64,tuple)"}
+	]
+}

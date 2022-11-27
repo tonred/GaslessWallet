@@ -1,0 +1,102 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "onGetMaxGas",
+			"inputs": [
+				{"name":"maxGas","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onGetExpectedAmount",
+			"inputs": [
+				{"name":"amount","type":"uint128"},
+				{"name":"payload","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onPriceChanged",
+			"inputs": [
+				{"name":"amount","type":"uint128"},
+				{"name":"payload","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onExchanged",
+			"inputs": [
+				{"name":"meta","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "constructor",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_gasGiver",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_gasGiver","type":"address"}
+			]
+		},
+		{
+			"name": "_minBalance",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_minBalance","type":"uint128"}
+			]
+		},
+		{
+			"name": "_minReserve",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_minReserve","type":"uint128"}
+			]
+		},
+		{
+			"name": "_tokenWallet",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_tokenWallet","type":"address"}
+			]
+		},
+		{
+			"name": "_maxGas",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_maxGas","type":"uint128"}
+			]
+		}
+	],
+	"data": [
+	],
+	"events": [
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"_gasGiver","type":"address"},
+		{"name":"_minBalance","type":"uint128"},
+		{"name":"_minReserve","type":"uint128"},
+		{"name":"_tokenWallet","type":"address"},
+		{"name":"_maxGas","type":"uint128"}
+	]
+}

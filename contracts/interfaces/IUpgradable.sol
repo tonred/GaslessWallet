@@ -1,4 +1,4 @@
-pragma ton-solidity >= 0.57.3;
+pragma ever-solidity ^0.63.0;
 
 
 interface IUpgradable {
