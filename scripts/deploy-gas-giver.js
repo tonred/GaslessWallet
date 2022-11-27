@@ -19,14 +19,14 @@ const main = async () => {
         slippage: 10000,    // 10%
         feePercent: 3000,   // 3%
         maxGas: 100e9,      // 100 ever
-        reserve: 2e9,       // 2 ever
+        reserve: 5e9,       // 5 ever
       }
     },
     initParams: {
       _randomNonce: locklift.utils.getRandomNonce(),
     },
     keyPair
-  }, locklift.utils.convertCrystal(3, 'nano'));
+  }, locklift.utils.convertCrystal(10.5, 'nano'));
   console.log(gasGiver.address);
   await logContract(gasGiver);
 };

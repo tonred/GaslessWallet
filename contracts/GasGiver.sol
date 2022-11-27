@@ -6,6 +6,7 @@ pragma AbiHeader pubkey;
 
 import "./enums/ReturnReason.sol";
 import "./enums/Status.sol";
+import "./interfaces/IGasGiver.sol";
 import "./interfaces/IGaslessWallet.sol";
 import "./interfaces/IUpgradable.sol";
 import "./structures/Config.sol";
@@ -24,7 +25,7 @@ import "flatqube/contracts/interfaces/IDexPair.sol";
 import "flatqube/contracts/libraries/DexOperationTypes.sol";
 
 
-contract GasGiver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback, IBounceTokensTransferCallback, IUpgradable, RandomNonce {
+contract GasGiver is IGasGiver, IAcceptTokensTransferCallback, IAcceptTokensBurnCallback, IBounceTokensTransferCallback, IUpgradable, RandomNonce {
 
     event Swap(uint128 amount);
 
@@ -134,11 +135,11 @@ contract GasGiver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback, I
     }
 
 
-    function getMaxGas() public view responsible returns (uint128 maxGas) {
+    function getMaxGas() public view responsible override returns (uint128 maxGas) {
         return {value: 0, flag: MsgFlag.REMAINING_GAS, bounce: false} _config.maxGas;
     }
 
-    function getExpectedAmount(TvmCell payload) public view responsible returns (uint128 amount, TvmCell payload_) {
+    function getExpectedAmount(TvmCell payload) public view responsible override returns (uint128 amount, TvmCell payload_) {
         uint128 neededGas = payload.toSlice().decode(uint128);
         amount = _expectedTokenAmount(neededGas);
         return {value: 0, flag: MsgFlag.REMAINING_GAS, bounce: false} (amount, payload);
@@ -161,16 +162,13 @@ contract GasGiver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback, I
         address /*remainingGasTo*/,
         TvmCell payload
     ) public override {
-        emit todo(12);
         require(msg.sender.value != 0, ErrorCodes.IS_NOT_WALLET);
         if (msg.sender == _tokenWallet) {
-            emit todo(13);
             _tokenBalance += amount;
             if (_status != Status.ACTIVE) {
                 _returnTokens(amount, sender, ReturnReason.IS_NOT_ACTIVE);
                 return;
             }
-            emit todo(14);
             (optional(Task) taskOpt, optional(ReturnReason) reasonOpt) = _createTask(amount, sender, payload);
             if (reasonOpt.hasValue()) {
                 ReturnReason reason = reasonOpt.get();
@@ -178,11 +176,9 @@ contract GasGiver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback, I
                 return;
             }
             Task task = taskOpt.get();
-            emit todo(15);
             if (_inSwap) {
                 _pushTask(task);
             } else {
-                emit todo(16);
                 _exchange(task);
             }
         } else if (msg.sender == _weverWallet) {
@@ -213,34 +209,16 @@ contract GasGiver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback, I
         return (Task(amount, sender, neededGas, meta), null);
     }
 
-    event todo(uint64 v);  // todo rm
     function _exchange(Task task) private returns (bool terminate) {
-        emit todo(1);
         uint128 expectedGas = _expectedGasAmount(task.amount);
-        if (task.neededGas > expectedGas) {
-            emit todo(2);
-            // price was changed (user sent not enough tokens) -> skip task, send user right amount
-            // todo !!! send as least this amount of tokens
-            emit todo(99);
-            uint128 neededGas = task.neededGas + Gas.OVERHEAD_VALUE;
-            TvmCell payload = abi.encode(neededGas, task.meta);
-            uint128 amount = _expectedTokenAmount(neededGas);
-            IGaslessWallet(task.sender).onPriceChanged{
-                value: Gas.ON_PRICE_CHANGED,
-                flag: MsgFlag.SENDER_PAYS_FEES,
-                bounce: false
-            }(amount, payload);
-            return false;
-        }
+        // no `task.neededGas > expectedGas` checks because if expectedGas is not enough
+        // than GaslessWallet will send one more request
         if (_remains() < expectedGas) {
-            emit todo(3);
-            // not enough tokens in giver -> stop tasks, swap in dex
+            // not enough tokens in giver -> put task into queue + stop other tasks + swap in dex
             _pushTask(task);
             _swap();
             return true;
         }
-        emit todo(4);
-        // everything is ok
         IGaslessWallet(task.sender).onExchanged{
             value: expectedGas,
             flag: MsgFlag.SENDER_PAYS_FEES,

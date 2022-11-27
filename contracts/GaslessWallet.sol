@@ -5,6 +5,7 @@ pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
 import "./interfaces/IGasGiver.sol";
+import "./interfaces/IGaslessWallet.sol";
 import "./structures/Transaction.sol";
 import "./utils/ErrorCodes.sol";
 import "./utils/Gas.sol";
@@ -13,7 +14,7 @@ import "@broxus/contracts/contracts/libraries/MsgFlag.sol";
 import "tip3/contracts/interfaces/ITokenWallet.sol";
 
 
-contract GaslessWallet {
+contract GaslessWallet is IGaslessWallet {
 
     address public _gasGiver;
     uint128 public _minBalance;
@@ -50,15 +51,18 @@ contract GaslessWallet {
         require(transaction.flag & (32 + 64 + 128) == 0, ErrorCodes.INVALID_TRANSACTION_FLAG);
         if (address(this).balance > _minBalance + transaction.value) {
             // enough balance
-            _execute(transaction);
-            if (address(this).value - transaction.value < _minReserve) {
-                // but reserve is not enough
-                TvmCell meta;
-                _requestGas(transaction.value, meta);
-            }
+            _processTransaction(transaction);
         } else {
             // not enough balance
             TvmCell meta = abi.encode(transaction);
+            _requestGas(transaction.value, meta);
+        }
+    }
+
+    function _processTransaction(Transaction transaction) private view {
+        _execute(transaction);
+        if (address(this).balance < _minReserve + transaction.value) {
+            TvmCell meta;
             _requestGas(transaction.value, meta);
         }
     }
@@ -102,17 +106,13 @@ contract GaslessWallet {
         });
     }
 
-    function onPriceChanged(uint128 amount, TvmCell payload) public view onlyGasGiver {
-        _transferToGasGiver(amount, payload);
-    }
-
-    function onExchanged(TvmCell meta) public view onlyGasGiver {
+    function onExchanged(TvmCell meta) public view override onlyGasGiver {
         if (meta.toSlice().empty()) {
             // just accept evers
             return;
         }
         Transaction transaction = abi.decode(meta, Transaction);
-        _execute(transaction);
+        _processTransaction(transaction);
     }
 
 }

@@ -46,10 +46,12 @@ contract SampleWallet is GaslessWallet, RandomNonce {
         _sendTransaction(Transaction(dest, value, flags, bounce, payload));
     }
 
+    // for testing
     function drain() public pure {
         msg.sender.transfer({value: 0, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false});
     }
 
+    // for testing
     function withdraw(uint128 amount) public view {
         TvmCell empty;
         ITokenWallet(_tokenWallet).transfer{

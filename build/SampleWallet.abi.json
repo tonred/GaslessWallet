@@ -67,15 +67,6 @@
 			]
 		},
 		{
-			"name": "onPriceChanged",
-			"inputs": [
-				{"name":"amount","type":"uint128"},
-				{"name":"payload","type":"cell"}
-			],
-			"outputs": [
-			]
-		},
-		{
 			"name": "onExchanged",
 			"inputs": [
 				{"name":"meta","type":"cell"}

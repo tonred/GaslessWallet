@@ -255,14 +255,6 @@
 			]
 		},
 		{
-			"name": "todo",
-			"inputs": [
-				{"name":"v","type":"uint64"}
-			],
-			"outputs": [
-			]
-		},
-		{
 			"name": "CodeUpgraded",
 			"inputs": [
 			],
