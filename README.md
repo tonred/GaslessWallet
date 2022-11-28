@@ -2,7 +2,7 @@
 
 Project Github: https://github.com/tonred/GaslessWallet
 
-MainNet Gas Give: `0:2a281c76625457a06f9edaed1411f56ddeda785c9d10838baaeb938f590f9d94`
+MainNet Gas Giver: `0:2a281c76625457a06f9edaed1411f56ddeda785c9d10838baaeb938f590f9d94`
 
 MainNet Sample Wallet: `0:43bd147bae7959bbe98f6ffba7beb1494fa3411f8bf985b9d38f387f046f7932`
 
