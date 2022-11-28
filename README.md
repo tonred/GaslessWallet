@@ -56,6 +56,7 @@ So GaslessWallet safe transaction in memory and waiting for EVERs (case 1 or 2)
 Gas Giver is contact that exchange Gas Token to EVERs. In order to optimize gas usage and
 minimize DEX calls, it exchanges Gas Token only when it doesn't have enough EVERs in balance.
 So exchanges can be represented as batches (see graphic bellow)
+
 ![Gas Giver Balance Graphic](docs/gas-giver-balance-graphic.png)
 
 There are some config params that are set on deploy:
