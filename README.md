@@ -303,7 +303,8 @@ npm run build
 
 ```shell
 # 3) Deploy
-npm run deploy-builder
+npn run deploy-gas-giver
+npn run deploy-sample-wallet
 ```
 
 
